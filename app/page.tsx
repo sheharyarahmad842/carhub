@@ -1,10 +1,19 @@
 import React from 'react';
 import Hero from '@components/Hero';
 import { SearchBar, CustomFilter, CarCard } from '@components';
+import { ToastContainer } from 'react-toastify';
 import { fetchCars } from '@utils';
+import 'react-toastify/dist/ReactToastify.css';
+import { HomeProps } from '@types';
 
-const Home = async () => {
-  const allCars = await fetchCars();
+const Home = async ({ searchParams }: HomeProps) => {
+  const allCars = await fetchCars({
+    manufacturer: searchParams.manufacturer || '',
+    year: searchParams.year || 2023,
+    model: searchParams.model || '',
+    fuel: searchParams.fuel || '',
+    limit: searchParams.limit || 10,
+  });
   const isDataEmpty =
     allCars.length === 0 || !allCars || !Array.isArray(allCars);
   return (
@@ -42,6 +51,7 @@ const Home = async () => {
           ))}
         </div>
       )}
+      <ToastContainer />
     </main>
   );
 };
