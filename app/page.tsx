@@ -1,6 +1,6 @@
 import React from 'react';
 import Hero from '@components/Hero';
-import { SearchBar, CustomFilter, CarCard } from '@components';
+import { SearchBar, CustomFilter, CarCard, ShowMore } from '@components';
 import { ToastContainer } from 'react-toastify';
 import { fetchCars } from '@utils';
 import { HomeProps } from '@types';
@@ -46,11 +46,19 @@ const Home = async ({ searchParams }: HomeProps) => {
           <p>{allCars?.message}</p>
         </section>
       ) : (
-        <div className='mt-12 max-width grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8 w-full padding-x'>
-          {allCars?.map((car, index) => (
-            <CarCard car={car} key={index} />
-          ))}
-        </div>
+        <section>
+          <div className='mt-12 max-width grid 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8 w-full padding-x'>
+            {allCars?.map((car, index) => (
+              <CarCard car={car} key={index} />
+            ))}
+          </div>
+          <div className='flex-center my-10'>
+            <ShowMore
+              pageNumber={(searchParams.limit || 10) / 10}
+              isNext={(searchParams.limit || 10) <= allCars.length}
+            />
+          </div>
+        </section>
       )}
       <ToastContainer />
     </main>
