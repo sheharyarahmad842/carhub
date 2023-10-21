@@ -3,8 +3,9 @@ import Hero from '@components/Hero';
 import { SearchBar, CustomFilter, CarCard } from '@components';
 import { ToastContainer } from 'react-toastify';
 import { fetchCars } from '@utils';
-import 'react-toastify/dist/ReactToastify.css';
 import { HomeProps } from '@types';
+import { fuels, yearsOfProduction } from '@constants';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Home = async ({ searchParams }: HomeProps) => {
   const allCars = await fetchCars({
@@ -31,8 +32,8 @@ const Home = async ({ searchParams }: HomeProps) => {
         <div className='home__filters'>
           <SearchBar />
           <div className='home__filter-container'>
-            <CustomFilter />
-            <CustomFilter />
+            <CustomFilter title='fuel' options={fuels} />
+            <CustomFilter title='year' options={yearsOfProduction} />
           </div>
         </div>
       </div>
