@@ -48,13 +48,13 @@ export interface OptionProps {
 
 export interface CustomFilterProps {
   options: OptionProps[];
-  setFilter: (filter: number | string) => void;
+  setFilter: (filter: any) => void;
 }
 
 export interface ShowMoreProps {
   pageNumber: number;
   isNext: boolean;
-  setLimit: (limit: string) => void;
+  setLimit: (limit: number) => void;
 }
 
 export interface SearchBarProps {

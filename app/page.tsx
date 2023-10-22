@@ -66,7 +66,7 @@ const Home = () => {
         </div>
       )}
 
-      {allCars.length === 0 ? (
+      {!loading && allCars.length === 0 ? (
         <section className='home__error-container'>
           <h3 className='text-bold text-lg text-black'>
             OOPS! No Results Found

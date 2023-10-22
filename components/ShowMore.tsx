@@ -6,7 +6,7 @@ import { CustomButton } from '@components';
 
 const ShowMore = ({ pageNumber, isNext, setLimit }: ShowMoreProps) => {
   const handleClick = () => {
-    setLimit(`${(pageNumber + 1) * 10}`);
+    setLimit((pageNumber + 1) * 10);
   };
   return (
     isNext && (
