@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { SearchManufacturer } from '@components';
 import { toast } from 'react-toastify';
-import { useRouter } from 'next/navigation';
+import { SearchBarProps } from '@types';
 import Image from 'next/image';
 
 const SearchButton = ({ otherClasses }: { otherClasses: string }) => (
@@ -18,40 +18,25 @@ const SearchButton = ({ otherClasses }: { otherClasses: string }) => (
   </button>
 );
 
-const SearchBar = () => {
-  const [manufacturer, setManufacturer] = useState('');
-  const [model, setModel] = useState('');
-  const router = useRouter();
+const SearchBar = ({ setManufacturer, setModel }: SearchBarProps) => {
+  const [searchManufacturer, setSearchManufacturer] = useState('');
+  const [searchModel, setSearchModel] = useState('');
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (manufacturer.trim() === '' && model.trim() === '') {
+    if (searchManufacturer.trim() === '' && searchModel.trim() === '') {
       toast.error('Please provide some input');
       return;
     }
-
-    const searchParams = new URLSearchParams(window.location.search);
-    if (model) {
-      searchParams.append('model', model.toLowerCase());
-    } else {
-      searchParams.delete('model');
-    }
-
-    if (manufacturer) {
-      searchParams.append('manufacturer', manufacturer.toLowerCase());
-    } else {
-      searchParams.delete('manufacturer');
-    }
-
-    const pathname = `${window.location.pathname}?${searchParams}`;
-    router.push(pathname);
+    setManufacturer(searchManufacturer.trim());
+    setModel(searchModel.trim());
   };
 
   return (
     <form className='searchbar' onSubmit={handleSubmit}>
       <div className='searchbar__item'>
         <SearchManufacturer
-          manufacturer={manufacturer}
-          setManufacturer={setManufacturer}
+          selected={searchManufacturer}
+          setSelected={setSearchManufacturer}
         />
         <SearchButton otherClasses='sm:hidden' />
       </div>
@@ -65,9 +50,9 @@ const SearchBar = () => {
         />
         <input
           type='text'
-          value={model}
+          value={searchModel}
           placeholder='Tiguan...'
-          onChange={(e) => setModel(e.target.value)}
+          onChange={(e) => setSearchModel(e.target.value)}
           className='w-full bg-light-white p-4 pl-12 rounded-r-full max-sm:rounded-full h-[48px] outline-none cursor-pointer text-sm'
         />
         <SearchButton otherClasses='sm:hidden' />
