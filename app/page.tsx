@@ -6,7 +6,6 @@ import { SearchBar, CustomFilter, CarCard, ShowMore } from '@components';
 import { ToastContainer } from 'react-toastify';
 import { fetchCars } from '@utils';
 import { fuels, yearsOfProduction } from '@constants';
-import Image from 'next/image';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Home = () => {
@@ -63,13 +62,7 @@ const Home = () => {
 
       {loading && (
         <div className='w-full flex-center mt-16'>
-          <Image
-            src='/loader.svg'
-            alt='Loader'
-            width={50}
-            height={50}
-            className='object-contain'
-          />
+          <h2 className='font-bold text-xl'>Loading....</h2>
         </div>
       )}
 
